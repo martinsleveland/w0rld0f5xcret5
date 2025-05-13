@@ -1,0 +1,24 @@
+{
+    "OS Information": {
+        "system": "Linux",
+        "node": "DESKTOP-R3KTL2P",
+        "release": "6.12.25-amd64",
+        "version": "#1 SMP PREEMPT_DYNAMIC Kali 6.12.25-1kali1 (2025-04-30)",
+        "machine": "x86_64",
+        "processor": ""
+    },
+    "CPU Information": {
+        "Physical cores": 8,
+        "Total cores": 12,
+        "Max Frequency": "4200.0MHz",
+        "Min Frequency": "400.0MHz",
+        "Current Frequency": "1225.9235MHz",
+        "CPU Usage": "5.3%"
+    },
+    "Memory Information": {
+        "Total Memory": "46.76 GB",
+        "Available Memory": "37.71 GB",
+        "Used Memory": "7.59 GB",
+        "Memory Usage": "19.4%"
+    }
+}

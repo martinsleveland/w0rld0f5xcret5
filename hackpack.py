@@ -13,6 +13,11 @@ from core.dir_fuzzer import dir_fuzzer
 from core.ddos import run_ddos
 from core.payload_generator import generate_payload
 from core.msf_listener import create_msf_listener_rc, run_msf_listener
+
+from core.PET.sys_info import sys_info
+from core.PET.file_stealer import file_stealer
+from core.PET.cred_dump import cred_dump
+
 from utils import load_payload_templates
 from syntax import TemplateHighlighter
 
@@ -45,7 +50,6 @@ class ModuleRunner(QObject):
         self.finished.emit(result)
 
 
-# === Main App Class ===
 class HackPack(QWidget):
     def __init__(self):
         super().__init__()
@@ -55,7 +59,6 @@ class HackPack(QWidget):
         self.stack = QStackedLayout()
         self.setLayout(self.stack)
 
-        # === Menu Screen ===
         self.menu_screen = QWidget()
         menu_layout = QVBoxLayout()
 
@@ -65,7 +68,7 @@ class HackPack(QWidget):
         label.setStyleSheet("color: #4169e1; font-weight: bold;")
         menu_layout.addWidget(label)
 
-        self.tools = ["Subdomain Enum", "Dir Fuzz", "SQL Injection", "DDOS", "Payload Generator", "Listener"]
+        self.tools = ["Subdomain Enum", "Dir Fuzz", "SQL Injection", "DDOS", "Payload Generator", "Listener", "Post Exploitation Toolkit"]
         for tool in self.tools:
             btn = QPushButton(tool)
             btn.setStyleSheet("background-color: #333; color: #0ff; font-size: 16px;")
@@ -75,7 +78,6 @@ class HackPack(QWidget):
         self.menu_screen.setLayout(menu_layout)
         self.stack.addWidget(self.menu_screen)
 
-        # === Tool Screen ===
         self.tool_screen = QWidget()
         tool_layout = QVBoxLayout()
 
@@ -307,6 +309,70 @@ class HackPack(QWidget):
 
         start_btn.clicked.connect(log_listener_output)
 
+
+    def show_pet_screen(self):
+        self.pet_screen = QWidget()
+        layout = QVBoxLayout()
+
+        label = QLabel("Post Exploitation Toolkit Modules")
+        label.setFont(QFont("Courier", 18))
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(label)
+
+        self.pet_select = QComboBox()
+        self.pet_select.addItems([
+            os.path.basename(f) for f in os.listdir("core/PET/") if f.endswith(".py")
+        ])
+        layout.addWidget(self.pet_select)
+
+        self.pet_target_input = QLineEdit()
+        self.pet_target_input.setPlaceholderText("Session IP or ID")
+        layout.addWidget(self.pet_target_input)
+
+        pet_run_btn = QPushButton("Run module")
+        layout.addWidget(pet_run_btn)
+        pet_run_btn.clicked.connect(self.run_pet_module)
+        
+
+        self.pet_output = QTextEdit()
+        self.pet_output.setReadOnly(True)
+        self.pet_output.setStyleSheet("background-color: #111; color: #0f0; font-family: Courier;")
+        layout.addWidget(self.pet_output)
+
+        back_btn = QPushButton("⬅ Back to Menu")
+        back_btn.setStyleSheet("background-color: #333; color: #f55;")
+        back_btn.clicked.connect(self.show_menu)
+        layout.addWidget(back_btn)
+
+        self.pet_screen.setLayout(layout)
+        self.stack.addWidget(self.pet_screen)
+        self.stack.setCurrentWidget(self.pet_screen)
+
+    
+
+    def run_pet_module(self):
+        module_name = self.pet_select.currentText()
+        target = self.pet_target_input.text().strip()
+
+        if not target:
+            self.pet_output.append("[!] Target or session is required!")
+            return
+
+        try:
+            if "sys_info" in module_name.lower():
+                result = sys_info(target)
+            elif "file_stealer" in module_name.lower():
+                result = file_stealer(target)
+            elif "cred_dump" in module_name.lower():
+                result = cred_dump(target)
+            else:
+                self.pet_output.append("[!] Unknown module!")
+                return
+
+            self.pet_output.append(str(result))
+
+        except Exception as e:
+            self.pet_output.append(f"[!] Error running module: {e}")
 
     def run_payload_generator(self):
         payload = self.payload_select.currentText()

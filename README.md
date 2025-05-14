@@ -11,10 +11,12 @@
 ## ⚙️ Features
 
 - 🖥️ `system_info.txt`: Get juicy system insights.
-- 🧰 `hackpack.py`: Your friendly toolbox of tricks.
-- 🧙 `syntax.py`: Conjure up some syntax magic.
-- 🛠️ `utils.py`: A utility belt Batman would be jealous of.
-- 📁 `templates/`: HTML blueprints for web-based wizardry.
+- 🧰 `hackpack.py`: Main file.
+- 🧙 `syntax.py`: for scuffed syntax highliting in the textbox.
+- 🛠️ `utils.py`: neccesary stuff.
+- 📁 `core/`: modules (you could add your own.
+- 📁 `templates/`: shellcode templates (you could add your own).
+
 
 ---
 
@@ -25,3 +27,11 @@
 ```bash
 git clone https://github.com/martinsleveland/w0rld0f5xcret5.git
 cd w0rld0f5xcret5
+
+
+python3 -m venv pyenv
+source pyenv/bin/activate
+
+pip3 install -r requirements.txt
+
+python3 hackpay.py

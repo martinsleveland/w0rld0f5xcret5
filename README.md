@@ -13,9 +13,9 @@
 - 🧰 `hackpack.py`: Main file.
 - 🧙 `syntax.py`: for scuffed syntax highliting in the textbox.
 - 🛠️ `utils.py`: neccesary stuff.
+- 📁 `templates/`: Shellcode templates.
 - 📁 `core/`: Modules.
 - 📁 `core/PET`: Post Exploitation Toolkit Modules.
-- 📁 `templates/`: Shellcode templates.
 
 
 ---

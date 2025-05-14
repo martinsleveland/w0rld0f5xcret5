@@ -10,12 +10,12 @@
 
 ## ⚙️ Features
 
-- 🖥️ `system_info.txt`: Get juicy system insights.
 - 🧰 `hackpack.py`: Main file.
 - 🧙 `syntax.py`: for scuffed syntax highliting in the textbox.
 - 🛠️ `utils.py`: neccesary stuff.
-- 📁 `core/`: modules (you could add your own.
-- 📁 `templates/`: shellcode templates (you could add your own).
+- 📁 `core/`: Modules.
+- 📁 `core/PET`: Post Exploitation Toolkit Modules.
+- 📁 `templates/`: Shellcode templates.
 
 
 ---

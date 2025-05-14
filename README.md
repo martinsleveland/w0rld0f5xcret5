@@ -4,7 +4,7 @@
 
 ## 🧠 What is w0rld0f5xcret5?
 
-`w0rld0f5xcret5` is a Python-based playground for digital exploration – blending tools, techniques, and a splash of chaos. It's like a **Swiss army knife** for cyber-enthusiasts, filled with customizable scripts to analyze, automate, and awe. Perfect for tinkerers, learners, and cyberpunks alike.
+`w0rld0f5xcret5` is a Python-based playground for digital exploration – blending tools, techniques, and interactablity through a GUI. It's like a **Swiss army knife** for skids.
 
 ---
 

@@ -27,11 +27,20 @@
 ```bash
 git clone https://github.com/martinsleveland/w0rld0f5xcret5.git
 cd w0rld0f5xcret5
+```
+### 2. Create and activate environment
 
-
+```
 python3 -m venv pyenv
 source pyenv/bin/activate
+```
+### 3. Install requirements
 
+```
 pip3 install -r requirements.txt
+```
+### 4. Run
 
+```
 python3 hackpay.py
+```

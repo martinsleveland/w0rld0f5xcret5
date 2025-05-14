@@ -1,6 +1,6 @@
 # 🌍 w0rld0f5xcret5 🔐
 
-> Welcome to a world of **sxcrets**!.  
+> Welcome to a world of secrets!.  
 
 ## 🧠 What is w0rld0f5xcret5?
 

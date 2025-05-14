@@ -13,6 +13,7 @@ from core.dir_fuzzer import dir_fuzzer
 from core.ddos import run_ddos
 from core.payload_generator import generate_payload
 from core.msf_listener import create_msf_listener_rc, run_msf_listener
+from core.obfuscate import file_input, file_check
 
 from core.PET.sys_info import sys_info
 from core.PET.file_stealer import file_stealer
@@ -68,7 +69,7 @@ class HackPack(QWidget):
         label.setStyleSheet("color: #4169e1; font-weight: bold;")
         menu_layout.addWidget(label)
 
-        self.tools = ["Subdomain Enum", "Dir Fuzz", "SQL Injection", "DDOS", "Payload Generator", "Listener", "Post Exploitation Toolkit"]
+        self.tools = ["Subdomain Enum", "Dir Fuzz", "SQL Injection", "DDOS", "Payload Generator", "Listener", "Obfuscate", "Post Exploitation Toolkit"]
         for tool in self.tools:
             btn = QPushButton(tool)
             btn.setStyleSheet("background-color: #333; color: #0ff; font-size: 16px;")

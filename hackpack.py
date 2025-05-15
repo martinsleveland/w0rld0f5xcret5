@@ -43,6 +43,8 @@ class ModuleRunner(QObject):
                 result = scan_sql_injection(self.target)
             elif self.module_name == "DDOS":
                 result = run_ddos(self.target, workers=20, sockets=200)
+            elif self.module_name == "Obfuscate":
+                result = print("Loading obfuscation module...")
             else:
                 result = "[!] Unknown module."
         except Exception as e:

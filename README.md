@@ -1,3 +1,9 @@
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![GitHub issues](https://img.shields.io/github/issues/martinsleveland/w0rld0f5xcret5)
+![GitHub forks](https://img.shields.io/github/forks/martinsleveland/w0rld0f5xcret5)
+![GitHub stars](https://img.shields.io/github/stars/martinsleveland/w0rld0f5xcret5)
+
+
 # 🌍 w0rld0f5xcret5 🔐
 
 > Welcome to a world of secrets!.  

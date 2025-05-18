@@ -404,7 +404,9 @@ class HackPack(QWidget):
         isValidTOS = False
         if input == "y":
             isValidTOS = True
+            print("correct")
         else:
+            print("Failed try again")
             sys.exit()
 
 

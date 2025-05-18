@@ -400,9 +400,18 @@ class HackPack(QWidget):
         else:
             self.payload_output.append("[!] Failed to generate payload.")
 
+    def isTOS():
+        isValidTOS = False
+        if input == "y":
+            isValidTOS = True
+        else:
+            sys.exit()
+
 
     def show_menu(self):
         self.stack.setCurrentWidget(self.menu_screen)
+        
+        
 
     def run_tool(self):
         target = self.target_input.text().strip()

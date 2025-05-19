@@ -13,7 +13,7 @@ from core.dir_fuzzer import dir_fuzzer
 from core.ddos import run_ddos
 from core.payload_generator import generate_payload
 from core.msf_listener import create_msf_listener_rc, run_msf_listener
-from core.obfuscate import file_input, file_check
+from core.obfuscation import file_input, file_check
 
 from core.PET.sys_info import sys_info
 from core.PET.file_stealer import file_stealer

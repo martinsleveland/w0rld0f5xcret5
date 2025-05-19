@@ -48,5 +48,5 @@ $ pip3 install -r requirements.txt
 ### 4. Run
 
 ```
-$ python3 hackpay.py
+$ python3 hackpack.py
 ```

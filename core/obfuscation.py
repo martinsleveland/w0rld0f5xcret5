@@ -16,5 +16,3 @@ def file_input():
         
 def check_file(file_input):
     pass
-    
-e

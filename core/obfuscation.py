@@ -16,3 +16,6 @@ def file_input():
         
 def check_file(file_input):
     pass
+    
+def obfuscate_payload(self):
+    print("logic here")

@@ -11,10 +11,11 @@ def obfuscate_payload():
         pass
     elif obfuscation_type == "jigsaw":
         print("you chose the jigsaw obfuscation method")
+        jigsaw_obfuscation()
     
     elif obfuscation_type == "jargon":
         print("ypu chose the jargon obfuscation method")
-
+        jargon_obfuscation()
 
     isValid = False
     

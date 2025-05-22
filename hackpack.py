@@ -124,6 +124,8 @@ class HackPack(QWidget):
         if tool_name == "Listener":
             self.show_listener_screen()
             return
+        if tool_name == "Obfuscation":
+            self.show_obfuscation_screen()
         else:
             self.output.clear()
             self.target_input.clear()
@@ -317,10 +319,6 @@ class HackPack(QWidget):
         layout = QVBoxLayout()
         
         label= QLabel("Obfuscation")
-
-    def show_pet_screen(self):
-        self.pet_screen = QWidget()
-        layout = QVBoxLayout()
         label.setFont(QFont("Courier", 18))
         label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(label)
@@ -328,6 +326,16 @@ class HackPack(QWidget):
         self.obfuscation_file_path_input = QLineEdit()
         self.obfuscation_file_path_input.SetPlaceholderText("Enter filepath: ")
         layout.addWidger(self.obfuscation_file_path_input)
+        self.obfuscation_obfuscation_method_input = QLineEdit()
+        self.obfuscation_obfuscation_method.setPlaceholderText("Enter obfuscation method: ")
+        layout.addWidget(self.obfuscation_obfuscation_method)
+
+    def show_pet_screen(self):
+        self.pet_screen = QWidget()
+        layout = QVBoxLayout()
+        label.setFont(QFont("Courier", 18))
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(label)
 
         label = QLabel("Post Exploitation Toolkit Modules")
         label.setFont(QFont("Courier", 18))
@@ -362,8 +370,6 @@ class HackPack(QWidget):
         self.pet_screen.setLayout(layout)
         self.stack.addWidget(self.pet_screen)
         self.stack.setCurrentWidget(self.pet_screen)
-
-    
 
     def run_pet_module(self):
         module_name = self.pet_select.currentText()

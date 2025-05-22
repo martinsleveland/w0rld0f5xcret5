@@ -9,7 +9,7 @@ from PyQt6.QtGui import QFont, QTextCursor, QShortcut, QKeySequence
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QObject
 
 from core.subdomain_enum import subdomain_enum
-from core.dir_fuzzer import dir_fuzzer
+from core.dir_fuzzer import fuzz_directories
 from core.ddos import run_ddos
 from core.payload_generator import generate_payload
 from core.msf_listener import create_msf_listener_rc, run_msf_listener
@@ -118,6 +118,8 @@ class HackPack(QWidget):
         self.current_tool = tool_name
         if tool_name == "SQL Injection":
             pass
+        if tool_name == "Dir Fuzz":
+            self.fuzz_directories()
         if tool_name == "DDOS":
             pass
         if tool_name == "Payload Generator":

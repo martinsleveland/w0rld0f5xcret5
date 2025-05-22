@@ -43,8 +43,6 @@ class ModuleRunner(QObject):
                 result = scan_sql_injection(self.target)
             elif self.module_name == "DDOS":
                 result = run_ddos(self.target, workers=20, sockets=200)
-            elif self.module_name == "Obfuscate":
-                result = print("Loading obfuscation module...")
             else:
                 result = "[!] Unknown module."
         except Exception as e:
@@ -118,13 +116,17 @@ class HackPack(QWidget):
 
     def show_tool_screen(self, tool_name):
         self.current_tool = tool_name
+        if tool_name == "SQL Injection":
+            pass
+        if tool_name == "DDOS":
+            pass
         if tool_name == "Payload Generator":
             self.show_payload_screen()
             return
         if tool_name == "Listener":
             self.show_listener_screen()
             return
-        if tool_name == "Obfuscation":
+        if tool_name == "Obfuscate":
             self.show_obfuscation_screen()
         else:
             self.output.clear()

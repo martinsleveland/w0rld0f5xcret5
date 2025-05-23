@@ -23,6 +23,8 @@
 - 📁 `core/`: Modules.
 - 📁 `core/PET`: Post Exploitation Toolkit Modules.
 
+- shoutout to RedSiege for the Jigsaw and Jargon obfuscation methods
+
 
 ---
 

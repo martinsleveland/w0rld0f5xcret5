@@ -20,7 +20,7 @@
 - 💬 `syntax.py`: for scuffed syntax highliting in the textbox.
 - 🛠️ `utils.py`: neccesary stuff.
 - 📁 `templates/`: Shellcode templates.
-- 📁 `core/`: Modules.
+- 📁 `core/`: the brainz.
 - 📁 `core/obfuscation_templates`: Obfuscation methods.
 - 📁 `core/PET`: Post Exploitation Toolkit Modules.
 

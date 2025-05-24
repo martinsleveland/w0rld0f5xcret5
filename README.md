@@ -23,7 +23,7 @@
 - 📁 `core/`: Modules.
 - 📁 `core/PET`: Post Exploitation Toolkit Modules.
 
-- shoutout to RedSiege for the Jigsaw and Jargon obfuscation methods
+- Jigsaw and Jargon obfuscation methods are based and improved upon, but the original creator is RedSiege!
 
 
 ---

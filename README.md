@@ -17,7 +17,7 @@
 ## ⚙️ Features
 
 - 🧰 `hackpack.py`: Main file.
-- 🧙 `syntax.py`: for scuffed syntax highliting in the textbox.
+- 💬 `syntax.py`: for scuffed syntax highliting in the textbox.
 - 🛠️ `utils.py`: neccesary stuff.
 - 📁 `templates/`: Shellcode templates.
 - 📁 `core/`: Modules.

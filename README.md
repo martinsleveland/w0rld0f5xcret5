@@ -21,6 +21,7 @@
 - 🛠️ `utils.py`: neccesary stuff.
 - 📁 `templates/`: Shellcode templates.
 - 📁 `core/`: Modules.
+- 📁 `core/obfuscation_templates`: Obfuscation methods.
 - 📁 `core/PET`: Post Exploitation Toolkit Modules.
 
 - Jigsaw and Jargon obfuscation methods are based and improved upon, but the original creator is RedSiege!

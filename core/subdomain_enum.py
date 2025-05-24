@@ -2,7 +2,7 @@ import requests
 
 def subdomain_enum(domain: str) -> str:
     url = f"https://crt.sh/?q=%25.{domain}&output=json"
-    output = f"[*] Getting subdomains for {domain}...\n"
+    output = ""
 
     try:
         res = requests.get(url, timeout=10)

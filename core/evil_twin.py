@@ -7,3 +7,6 @@ file = os.path.join("evil_twin.sh")
 
 
 with open(file as "r"):
+    code = file.read()
+    exec(code)
+        

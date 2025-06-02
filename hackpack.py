@@ -200,6 +200,8 @@ class HackPack(QWidget):
             return
         elif tool_name == "Post Exploitation Toolkit":
             self.show_pet_screen()
+        elif tool_name == "Evil Twin":
+            self.show_eviltwin_sceen()
             return
 
         # SQL Injection, Dir Fuzz, Subdomain Enum, DDOS
@@ -490,6 +492,38 @@ class HackPack(QWidget):
         self.stack.addWidget(self.obfuscation_screen)
         self.stack.setCurrentWidget(self.obfuscation_screen)
 
+    def show_evil_twin_screen(self):
+        self.evil_twin_screen = QWidget()
+        layout = QVBoxLayout()
+
+        label = QLabel("Evil Twin")
+        label.setFont(QFont("Courier", 18))
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(label)
+
+        self.evil_twin_target_input = QLineEdit()
+        self.evil_twin_target_input.setPlaceholderText("Enter target URL: ")
+        layout.addWidget(self.evil_twin_target_input)
+
+        run_btn = QPushButton("Run Evil Twin attack")
+        run_btn.setStyleSheet("background-color: #3a3a3a; color: #0f0;")
+        run_btn.clicked.connect(self.run_evil_twin)
+        layout.addWidget(run_btn)
+
+        self.evil_twin_output = QTextEdit()
+        self.evil_twin_output.setReadOnly(True)
+        self.evil_twin_output.setStyleSheet("background-color: #111; color: #0f0; font-family: Courier;")
+        layout.addWidget(self.evil_twin_output)
+
+        back_btn = QPushButton("⬅ Back to Menu")
+        back_btn.setStyleSheet("background-color: #333; color: #f55;")
+        back_btn.clicked.connect(self.show_menu)
+        layout.addWidget(back_btn)
+
+        self.evil_twin_screen.setLayout(layout)
+        self.stack.addWidget(self.evil_twin_screen)
+        self.stack.setCurrentWidget(self.eviltwin_screen)
+    
     def show_pet_screen(self):
         self.pet_screen = QWidget()
         layout = QVBoxLayout()

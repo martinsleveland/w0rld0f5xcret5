@@ -50,5 +50,5 @@ $ pip3 install -r requirements.txt
 ### 4. Run
 
 ```
-$ python3 hackpack.py
+$ sudo python3 hackpack.py
 ```

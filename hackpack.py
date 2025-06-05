@@ -501,10 +501,15 @@ class HackPack(QWidget):
         label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(label)
 
-        self.evil_twin_target_input = QLineEdit()
-        self.evil_twin_target_input.setPlaceholderText("Enter target URL: ")
+        self.evil_twin_said_input = QLineEdit()
+        self.evil_twin_target_input.setPlaceholderText("Enter target ssid: ")
         layout.addWidget(self.evil_twin_target_input)
 
+        self.evil_twin_channel_input = QLineEdit()
+        self.evil_twin_channel_input.setPlaceholderText("Enter channel: ")
+        layout.addWidget(self.evil_twin_channel_input)
+        
+        
         run_btn = QPushButton("Run Evil Twin attack")
         run_btn.setStyleSheet("background-color: #3a3a3a; color: #0f0;")
         run_btn.clicked.connect(self.run_evil_twin)

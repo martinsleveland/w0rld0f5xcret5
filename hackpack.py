@@ -50,13 +50,14 @@ class ModuleRunner(QObject):
             elif self.module_name == "DDOS":
                 self.progress.emit(f"[*] Launching DDOS attack on {self.target}...")
                 result = run_ddos(self.target, workers=20, sockets=200)
+            elif self.module_name = "Evil Twin":
+                result = run_evil_twin(self.target)
             else:
                 result = "[!] Unknown module."
         except Exception as e:
             result = f"[!] Exception: {e}"
 
         self.finished.emit(result)
-
 
 class HackPack(QWidget):
     def __init__(self):
@@ -177,8 +178,6 @@ class HackPack(QWidget):
             output_path=output_path
         )
         self.obfuscation_output.append(result)
-
-
 
     def show_tool_screen(self, tool_name):
         self.current_tool = tool_name

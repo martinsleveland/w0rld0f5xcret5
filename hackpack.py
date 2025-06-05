@@ -15,6 +15,7 @@ from core.ddos import run_ddos
 from core.payload_generator import generate_payload
 from core.msf_listener import create_msf_listener_rc, run_msf_listener
 from core.obfuscation import *
+from core.evil_twin import run_bash_script
 
 from core.obfuscation import list_obfuscation_methods
 

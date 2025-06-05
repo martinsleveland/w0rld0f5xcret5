@@ -1,4 +1,5 @@
 import requests
+import scapy
 
 
 def run_bash_script(self):

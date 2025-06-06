@@ -540,7 +540,7 @@ class HackPack(QWidget):
 
         self.pet_select = QComboBox()
         self.pet_select.addItems([
-            os.path.basename(f) for f in os.listdir("core/PET/") if f.endswith(".py")
+            os.path.basename(f) for f in os.listdir("core/PET/") if f.endswith(".py", ".ps1")
         ])
         layout.addWidget(self.pet_select)
 

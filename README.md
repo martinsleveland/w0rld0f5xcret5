@@ -10,7 +10,7 @@
 
 ## 🧠 What is w0rld0f5xcret5?
 
-w0rld0f5xcret5 is a Python-based toolkit for digital exploration – blending tools, techniques, and interactablity through a GUI.
+w0rld0f5xcret5 is a Python-based toolkit for digital exploration – blending tools, techniques, and interactablity through a GUI. Currently ment for linux users, preferably with a few preinstalled tools such as airmon for example, if you are on kali, blackarch or parrot they should be installed.
 ---
 
 ## ⚙️ Features

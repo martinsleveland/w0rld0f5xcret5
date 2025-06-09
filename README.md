@@ -45,7 +45,9 @@ $ source pyenv/bin/activate
 ### 3. Install requirements
 
 ```
-$ pip3 install -r requirements.txt
+$ pip3 install pyqt6
+$ pip3 install psutil
+$ pip3 install  *whatever else that pops up cant remember atm*
 ```
 ### 4. Run
 

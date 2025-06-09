@@ -1,9 +1,11 @@
 import os
 import sys
+import csv
 import threading
+import subprocess
 from PyQt6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QPushButton, QLabel,
-    QLineEdit, QTextEdit, QStackedLayout, QComboBox
+    QLineEdit, QTextEdit, QStackedLayout, QComboBox, QDialog, QTableWidgetItem
 )
 from PyQt6.QtGui import QFont, QTextCursor, QShortcut, QKeySequence
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QObject
@@ -15,14 +17,13 @@ from core.ddos import run_ddos
 from core.payload_generator import generate_payload
 from core.msf_listener import create_msf_listener_rc, run_msf_listener
 from core.obfuscation import *
-from core.evil_twin import run_bash_script
+from core.deauth import run_deauth
 
 from core.obfuscation import list_obfuscation_methods
 
-from core.PET.windows import *
-from core.PET.sys_info import sys_info
-from core.PET.file_stealer import file_stealer
-from core.PET.cred_dump import cred_dump
+#from core.PET.sys_info import sys_info
+#from core.PET.file_stealer import file_stealer
+#from core.PET.cred_dump import cred_dump
 
 from utils import load_payload_templates
 from syntax import TemplateHighlighter
@@ -52,8 +53,9 @@ class ModuleRunner(QObject):
             elif self.module_name == "DDOS":
                 self.progress.emit(f"[*] Launching DDOS attack on {self.target}...")
                 result = run_ddos(self.target, workers=20, sockets=200)
-            elif self.module_name = "Evil Twin":
-                result = run_evil_twin(self.target)
+            elif self.module_name == "Deauth":
+                self.progress.emit(f"[*] Running Deauth attack...")
+                result = run_deauth(self.target)
             else:
                 result = "[!] Unknown module."
         except Exception as e:
@@ -79,7 +81,7 @@ class HackPack(QWidget):
         label.setStyleSheet("color: #4169e1; font-weight: bold;")
         menu_layout.addWidget(label)
 
-        self.tools = ["Subdomain Enum", "Dir Fuzz", "SQL Injection", "DDOS", "Payload Generator", "Listener", "Obfuscate", "Post Exploitation Toolkit"]
+        self.tools = ["Subdomain Enum", "Dir Fuzz", "SQL Injection", "DDOS", "Payload Generator", "Listener", "Obfuscate", "Post Exploitation Toolkit", "Deauth"]
         for tool in self.tools:
             btn = QPushButton(tool)
             btn.setStyleSheet("background-color: #333; color: #0ff; font-size: 16px;")
@@ -181,6 +183,73 @@ class HackPack(QWidget):
         )
         self.obfuscation_output.append(result)
 
+    def scan_wifi_networks(self):
+        iface = self.interface_input.text().strip() or "wlan0"
+        script_path = os.path.join("core", "wifi_scan.sh")
+
+        try:
+            result = subprocess.run(
+                ["sudo", "bash", script_path, iface],
+                capture_output=True, text=True, check=True
+            )
+            csv_path = result.stdout.strip()
+
+            if not os.path.exists(csv_path):
+                raise FileNotFoundError("Scan results not found.")
+
+            # Read the CSV
+            networks = []
+            with open(csv_path, newline='') as f:
+                reader = csv.reader(f)
+                for row in reader:
+                    if len(row) > 13 and row[0].strip() != "BSSID":
+                        bssid = row[0].strip()
+                        channel = row[3].strip()
+                        ssid = row[13].strip()
+                        if ssid and bssid and channel:
+                            networks.append((ssid, bssid, channel))
+
+            # Show in popup table
+            popup = QDialog(self)
+            popup.setWindowTitle("Select Target Network")
+            layout = QVBoxLayout()
+
+            table = QTableWidget(len(networks), 3)
+            table.setHorizontalHeaderLabels(["SSID", "BSSID", "Channel"])
+            for i, (ssid, bssid, channel) in enumerate(networks):
+                table.setItem(i, 0, QTableWidgetItem(ssid))
+                table.setItem(i, 1, QTableWidgetItem(bssid))
+                table.setItem(i, 2, QTableWidgetItem(channel))
+
+            layout.addWidget(table)
+
+            def on_row_click(row, col):
+                selected = networks[row]
+                self.ap_mac_input.setText(selected[1])
+                self.channel_input.setText(selected[2])
+                popup.accept()
+
+            table.cellClicked.connect(on_row_click)
+
+            close_btn = QPushButton("Cancel")
+            close_btn.clicked.connect(popup.reject)
+            layout.addWidget(close_btn)
+
+            popup.setLayout(layout)
+            popup.exec()
+
+        except Exception as e:
+            err_popup = QDialog(self)
+            layout = QVBoxLayout()
+            err_label = QTextEdit(f"[!] Error scanning: {e}")
+            err_label.setReadOnly(True)
+            layout.addWidget(err_label)
+            close_btn = QPushButton("Close")
+            close_btn.clicked.connect(err_popup.accept)
+            layout.addWidget(close_btn)
+            err_popup.setLayout(layout)
+            err_popup.exec()
+
     def show_tool_screen(self, tool_name):
         self.current_tool = tool_name
 
@@ -201,8 +270,8 @@ class HackPack(QWidget):
             return
         elif tool_name == "Post Exploitation Toolkit":
             self.show_pet_screen()
-        elif tool_name == "Evil Twin":
-            self.show_eviltwin_sceen()
+        elif tool_name == "Deauth":
+            self.show_deauth_screen()
             return
 
         # SQL Injection, Dir Fuzz, Subdomain Enum, DDOS
@@ -493,42 +562,61 @@ class HackPack(QWidget):
         self.stack.addWidget(self.obfuscation_screen)
         self.stack.setCurrentWidget(self.obfuscation_screen)
 
-    def show_evil_twin_screen(self):
-        self.evil_twin_screen = QWidget()
+    def show_deauth_screen(self):
+        self.deauth_screen = QWidget()
         layout = QVBoxLayout()
 
-        label = QLabel("Evil Twin")
+        label = QLabel("Deauthentication Attack")
         label.setFont(QFont("Courier", 18))
         label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(label)
 
-        self.evil_twin_said_input = QLineEdit()
-        self.evil_twin_target_input.setPlaceholderText("Enter target ssid: ")
-        layout.addWidget(self.evil_twin_target_input)
+        self.interface_input = QLineEdit()
+        self.interface_input.setPlaceholderText("Interface (e.g., wlan0)")
+        layout.addWidget(self.interface_input)
 
-        self.evil_twin_channel_input = QLineEdit()
-        self.evil_twin_channel_input.setPlaceholderText("Enter channel: ")
-        layout.addWidget(self.evil_twin_channel_input)
-        
-        
-        run_btn = QPushButton("Run Evil Twin attack")
-        run_btn.setStyleSheet("background-color: #3a3a3a; color: #0f0;")
-        run_btn.clicked.connect(self.run_evil_twin)
+        self.ap_mac_input = QLineEdit()
+        self.ap_mac_input.setPlaceholderText("AP MAC address")
+        layout.addWidget(self.ap_mac_input)
+
+        self.client_mac_input = QLineEdit()
+        self.client_mac_input.setPlaceholderText("Client MAC address (or FF:FF:FF:FF:FF:FF for broadcast)")
+        layout.addWidget(self.client_mac_input)
+
+        self.channel_input = QLineEdit()
+        self.channel_input.setPlaceholderText("Channel number")
+        layout.addWidget(self.channel_input)
+
+        scan_btn = QPushButton("Scan Nearby Networks")
+        scan_btn.setStyleSheet("background-color: #333; color: #0ff;")
+        scan_btn.clicked.connect(self.scan_wifi_networks)
+        layout.addWidget(scan_btn)
+
+        self.stop_scan_btn = QPushButton("Stop Scanning Mode")
+        self.stop_scan_btn.setStyleSheet("background-color: #550000; color: #fff;")
+        self.stop_scan_btn.clicked.connect(self.stop_scan_mode)
+        layout.addWidget(self.stop_scan_btn)
+
+
+        run_btn = QPushButton("Run Deauth Attack")
+        run_btn.setStyleSheet("background-color: #3a3a3a; color: #f00;")
+        run_btn.clicked.connect(self.run_deauth)
         layout.addWidget(run_btn)
 
-        self.evil_twin_output = QTextEdit()
-        self.evil_twin_output.setReadOnly(True)
-        self.evil_twin_output.setStyleSheet("background-color: #111; color: #0f0; font-family: Courier;")
-        layout.addWidget(self.evil_twin_output)
+        self.deauth_output = QTextEdit()
+        self.deauth_output.setReadOnly(True)
+        self.deauth_output.setStyleSheet("background-color: #111; color: #0f0; font-family: Courier;")
+        layout.addWidget(self.deauth_output)
 
         back_btn = QPushButton("⬅ Back to Menu")
         back_btn.setStyleSheet("background-color: #333; color: #f55;")
         back_btn.clicked.connect(self.show_menu)
         layout.addWidget(back_btn)
 
-        self.evil_twin_screen.setLayout(layout)
-        self.stack.addWidget(self.evil_twin_screen)
-        self.stack.setCurrentWidget(self.eviltwin_screen)
+        self.deauth_screen.setLayout(layout)
+        self.stack.addWidget(self.deauth_screen)
+        self.stack.setCurrentWidget(self.deauth_screen)
+
     
     def show_pet_screen(self):
         self.pet_screen = QWidget()
@@ -541,7 +629,7 @@ class HackPack(QWidget):
 
         self.pet_select = QComboBox()
         self.pet_select.addItems([
-            os.path.basename(f) for f in os.listdir("core/PET/") if f.endswith(".py", ".ps1")
+            os.path.basename(f) for f in os.listdir("core/PET/") if f.endswith(".py",)
         ])
         layout.addWidget(self.pet_select)
 
@@ -614,19 +702,33 @@ class HackPack(QWidget):
             self.payload_output.append(f"[+] Payload saved to: {output_path}")
         else:
             self.payload_output.append("[!] Failed to generate payload.")
+    
+    def run_deauth(self):
+        interface = self.interface_input.text().strip()
+        ap_mac = self.ap_mac_input.text().strip()
+        client_mac = self.client_mac_input.text().strip()
+        channel = self.channel_input.text().strip()
 
-    def isTOS():
-        user_input = input("Do you accept the TOS? (y/n): ").lower()
-        if user_input == "y":
-            print("Correct")
-            return True
-        else:
-            print("Failed, try again")
-            sys.exit()
+        if not interface or not ap_mac or not client_mac or not channel:
+            self.deauth_output.append("[!] All fields are required!")
+            return
+
+        self.deauth_output.append(f"[~] Running deauth on {interface}...")
+        result = run_deauth(interface, ap_mac, client_mac, channel)
+        self.deauth_output.append(result)
+
+    def stop_scan_mode(self):
+        iface = self.interface_input.text().strip()
+        if not iface:
+            self.deauth_ouput.append("[!] Please enter an interface!")
+            return
+    def stop_scan_mode(self):
+        iface = self.interface_input.text().strip()
+        if not iface:
+            self.deauth_ouput.append("[!] Please enter an interface!")    
 
     def show_menu(self):
         self.stack.setCurrentWidget(self.menu_screen)
-        
         
 
     def run_tool(self):

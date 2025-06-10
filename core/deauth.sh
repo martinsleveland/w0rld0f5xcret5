@@ -34,4 +34,4 @@ echo "[+] Stopping monitor mode..."
 sudo airmon-ng stop "$MON_INTERFACE"
 echo "[+] Deauth complete."
 echo "Disabling monitor mode..."
-sudo airmon-ng stop wlan0mon
+sudo airmon-ng stop "$MON_INTERFACE"

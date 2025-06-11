@@ -27,6 +27,7 @@ from core.obfuscation import list_obfuscation_methods
 
 from utils import load_payload_templates
 from syntax import TemplateHighlighter
+from webshell import *
 
 
 class ModuleRunner(QObject):

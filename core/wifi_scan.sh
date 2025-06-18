@@ -15,4 +15,5 @@ timeout 6s sudo airodump-ng "$MON_IFACE" --output-format csv -w "$OUT" >/dev/nul
 
 sudo airmon-ng stop "$MON_IFACE" >/dev/null 2>&1
 
+echo "Saving file..."
 echo "$OUT-01.csv"

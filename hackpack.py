@@ -517,7 +517,7 @@ class HackPack(QWidget):
             payload = self.listener_payload_select.currentText()
 
             if not lhost or not lport:
-                self.listener_log.append("[!] LHOST and LPORT are required!")
+                self.listener_log.append("[!] Invalid input, please try again!")
                 return
 
             rc_path = create_msf_listener_rc(payload, lhost, lport)
@@ -541,7 +541,7 @@ class HackPack(QWidget):
         layout.addWidget(label)
 
         self.obfuscation_file_input = QLineEdit()
-        self.obfuscation_file_input.setPlaceholderText("Enter file to obfuscate: ")
+        self.obfuscation_file_input.setPlaceholderText("Enter the file to obfuscate: ")
         layout.addWidget(self.obfuscation_file_input)
         self.obfuscation_type_select = QComboBox()
         self.obfuscation_type_select.addItems(list_obfuscation_methods())
@@ -567,7 +567,7 @@ class HackPack(QWidget):
         self.deauth_screen = QWidget()
         layout = QVBoxLayout()
 
-        label = QLabel("Deauthentication Attack")
+        label = QLabel("Deauth")
         label.setFont(QFont("Courier", 18))
         label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(label)
@@ -577,7 +577,7 @@ class HackPack(QWidget):
         layout.addWidget(self.interface_input)
 
         self.ap_mac_input = QLineEdit()
-        self.ap_mac_input.setPlaceholderText("AP MAC address")
+        self.ap_mac_input.setPlaceholderText("MAC address")
         layout.addWidget(self.ap_mac_input)
 
         self.client_mac_input = QLineEdit()

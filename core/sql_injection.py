@@ -106,3 +106,11 @@ def scan_sql_injection(target):
     output += time_based_sqli(target)
     output += detect_db_type(target)
     return output
+    
+def login_sql_injection(target):
+    attacks = ["
+        ' OR = 1 = 1 '
+        ' OR = 1 = 1 #'
+        'SELECT * FROM users WHERE username="admin" AND password = password'
+
+    "]

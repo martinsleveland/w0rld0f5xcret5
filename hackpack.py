@@ -31,8 +31,10 @@ from webshell import *
 
 
 class ModuleRunner(QObject):
-    finished = pyqtSignal(str)
+    # loading output
     progress = pyqtSignal(str)
+    # finished output
+    finished = pyqtSignal(str)
 
     def __init__(self, module_name, target, wordlist_path=None):
         super().__init__()

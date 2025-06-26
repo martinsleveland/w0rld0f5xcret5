@@ -2,6 +2,7 @@ import random
 import os
 
 def jargon_obfuscation(input_path, output_path, dictionary_path="dictionary.txt"):
+    print("This should already be implemented...")
     def gen_word_combinations(dict_file):
         try:
             with open(dict_file) as dictionary:

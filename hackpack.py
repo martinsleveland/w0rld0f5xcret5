@@ -16,7 +16,7 @@ from core.sql_injection import scan_sql_injection
 from core.ddos import run_ddos
 from core.payload_generator import generate_payload
 from core.msf_listener import create_msf_listener_rc, run_msf_listener
-from core.obfuscation import *
+from core.obfuscation_templates import *
 from core.deauth import run_deauth
 
 from core.obfuscation import list_obfuscation_methods

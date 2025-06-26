@@ -66,6 +66,8 @@ class ModuleRunner(QObject):
 
         self.finished.emit(result)
 
+# remember to add obfuscated payload output as python and powershell
+
 class HackPack(QWidget):
     def __init__(self):
         super().__init__()

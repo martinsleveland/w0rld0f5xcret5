@@ -1,5 +1,7 @@
 import subprocess
 
+print("I suggest checking out the powershell module i've made after you get RCE")
+
 def generate_payload(payload, lhost, lport, fmt, output_path):
     try:
         cmd = [

@@ -764,6 +764,7 @@ class HackPack(QWidget):
                     self.worker.stop()
             except Exception as e:
                 self.output_append(f"[!] Error stopping worker: {e}")
+                self.output_append("[!] Trying again")
 
         if self.thread and self.thread.isRunning():
             try:

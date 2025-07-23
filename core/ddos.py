@@ -15,7 +15,7 @@ JOIN_TIMEOUT = 1.0
 DEFAULT_WORKERS = 10
 DEFAULT_SOCKETS = 500
 
-GOLDENEYE_BANNER = 'GoldenEye v2.1 by Jan Seidl <jseidl@wroot.org>'
+GOLDENEYE_BANNER = 'GoldenEye v2.2 by Jan Seidl <jseidl@wroot.org> and Martin Sleveland <martin@sleveland.xyz>'
 
 class GoldenEye:
     def __init__(self, url, workers=DEFAULT_WORKERS, sockets=DEFAULT_SOCKETS,

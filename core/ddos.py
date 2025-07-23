@@ -1,3 +1,5 @@
+# GoldenEye remixed by Martin Sleveland
+
 import urllib.parse, ssl, random, time, http.client
 from multiprocessing import Process, Manager
 

@@ -86,7 +86,7 @@ class HackPack(QWidget):
         label.setStyleSheet("color: #4169e1; font-weight: bold;")
         menu_layout.addWidget(label)
 
-        self.tools = ["Subdomain Enum", "Dir Fuzz", "SQL Injection", "DDOS", "Payload Generator", "Listener", "Obfuscate", "Post Exploitation Toolkit", "Deauth"]
+        self.tools = ["Subdomain Enum", "Dir Fuzz", "SQL Injection", "DDOS", "Payload Generator", "Listener", "Webshell", "Obfuscate", "Post Exploitation Toolkit", "Deauth"]
         for tool in self.tools:
             btn = QPushButton(tool)
             btn.setStyleSheet("background-color: #333; color: #0ff; font-size: 16px;")
@@ -534,6 +534,16 @@ class HackPack(QWidget):
             threading.Thread(target=read_output, daemon=True).start()
 
         start_btn.clicked.connect(log_listener_output)
+
+    def webshell(self, shelltype, local_ip, target_ip, target_port):
+        self.shelltype = shelltype
+        self.local_ip = local_ip
+        self.target_ip = target_ip
+        self.target_port = target_port
+        
+        # display dropdown menu gor choosing shelltype
+        # display textbox to input local ip, target ip and target port
+        
 
     def show_obfuscation_screen(self):
         self.obfuscation_screen = QWidget()

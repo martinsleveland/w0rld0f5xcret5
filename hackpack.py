@@ -552,10 +552,24 @@ class HackPack(QWidget):
             print("----Modes----")
             print("1. | Reverse tcp shell")
             choice = input(Select mode: )
-            if choice != ("1"):
-                print("Incorrect selection, please try again!")
-            else:
-                print("Reverse tcp shell selected!")
+            switch(choice)
+            
+            def handle_choice(choice):
+                print("----Select mode----")
+                print("1. | Reverse shell")
+                print("2. | Bind shell")
+                print("3. | MSFVenom")
+                match choice:
+                case 1:
+                    return("Selected Reverse Shell")
+                case 2:
+                    return("Selected Bind Shell")
+                case 3:
+                    return("Selected MSFVenom")
+                
+                    
+                
+                
             
 
         

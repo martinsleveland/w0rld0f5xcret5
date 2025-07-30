@@ -535,11 +535,30 @@ class HackPack(QWidget):
 
         start_btn.clicked.connect(log_listener_output)
 
-    def webshell(self, shelltype, local_ip, target_ip, target_port):
+    def webshell(self, shellmode, shelltype, local_ip, target_ip, target_port):
+        self.shellmode = shell_mode
         self.shelltype = shelltype
         self.local_ip = local_ip
         self.target_ip = target_ip
         self.target_port = target_port
+        
+        shellmode = input("Select shell mode: ")
+        shelltype = input("Select webshell type: ")
+        local_ip = input("Select local ip: ")
+        target_ip = input("Select target ip: ")
+        target_port = input("Select target port: ")
+        
+        def shell_mode(choice):
+            print("----Modes----")
+            print("1. | Reverse tcp shell")
+            choice = input(Select mode: )
+            if choice != ("1"):
+                print("Incorrect selection, please try again!")
+            else:
+                print("Reverse tcp shell selected!")
+            
+
+        
         
         # display dropdown menu gor choosing shelltype
         # display textbox to input local ip, target ip and target port

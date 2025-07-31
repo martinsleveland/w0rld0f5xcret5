@@ -548,7 +548,7 @@ class HackPack(QWidget):
         target_ip = input("Select target ip: ")
         target_port = input("Select target port: ")
         
-        def shell_mode(choice):
+        def shell_mode(choice, handle_choice):
             print("----Modes----")
             print("1. | Reverse tcp shell")
             choice = input("Select mode: ")

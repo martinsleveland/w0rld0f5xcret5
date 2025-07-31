@@ -544,11 +544,11 @@ class HackPack(QWidget):
             self.target_ip = target_ip
             self.target_port = target_port
         
-        shellmode = input("Select shell mode: ")
-        shelltype = input("Select webshell type: ")
-        local_ip = input("Select local ip: ")
-        target_ip = input("Select target ip: ")
-        target_port = input("Select target port: ")
+            shellmode = input("Select shell mode: ")
+            shelltype = input("Select webshell type: ")
+            local_ip = input("Select local ip: ")
+            target_ip = input("Select target ip: ")
+            target_port = input("Select target port: ")
         
         def shell_mode(choice, handle_choice):
             handle_choice()

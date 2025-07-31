@@ -555,17 +555,24 @@ class HackPack(QWidget):
             switch(choice)
             
             def handle_choice(choice):
+                choice = None
                 print("----Select mode----")
                 print("1. | Reverse shell")
                 print("2. | Bind shell")
                 print("3. | MSFVenom")
+                print("b. | Back")
                 match choice:
                 case 1:
-                    return("Selected Reverse Shell")
+                    return("Selected 'Reverse Shell'!")
+                    choice = rShell
                 case 2:
-                    return("Selected Bind Shell")
+                    return("Selected 'Bind Shell'!")
+                    choice = bShell
                 case 3:
-                    return("Selected MSFVenom")
+                    return("Selected 'MSFVenom'!")
+                    choice = msfvenom
+                case b:
+                    return("Selected 'Back'!")
                 
                     
                 

@@ -551,7 +551,7 @@ class HackPack(QWidget):
         def shell_mode(choice):
             print("----Modes----")
             print("1. | Reverse tcp shell")
-            choice = input(Select mode: )
+            choice = input("Select mode: ")
             switch(choice)
             
             def handle_choice(choice):

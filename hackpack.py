@@ -537,7 +537,7 @@ class HackPack(QWidget):
 
     def webshell(self, shellmode, shelltype, local_ip, target_ip, target_port):
         handle_input()
-        def handle input(self):
+        def handle_input(self, shell_mode, shelltype, local_ip, target_ip, target_port):
             self.shellmode = shell_mode
             self.shelltype = shelltype
             self.local_ip = local_ip
@@ -555,7 +555,7 @@ class HackPack(QWidget):
             choice = input("Select mode: ")
             switch(choice)
             
-            def handle_choice(choice):
+            def handle_choice(choice, handle_input):
                 choice = None
                 print("----Modes----")
                 print("----Select mode----")
@@ -574,10 +574,7 @@ class HackPack(QWidget):
                     return("Selected 'MSFVenom'!")
                     choice = msfvenom
                 case b:
-                    return("Selected 'Back'!")      
-            
-        
-        
+                    return("Selected 'Back'!")     
         # display dropdown menu gor choosing shelltype
         # display textbox to input local ip, target ip and target port
         

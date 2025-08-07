@@ -666,6 +666,124 @@ class HackPack(QWidget):
         self.stack.addWidget(self.deauth_screen)
         self.stack.setCurrentWidget(self.deauth_screen)
 
+    def show_webshell_screen(self):
+        self.webshell_screen = QWidget()
+        layout = QVBoxLayout()
+
+        label = QLabel("Webshell")
+        label.setFont(QFont("Courier", 18))
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(label)
+
+        self.webshell_select = QComboBox()
+        self.template_paths = load_webshell_templates()
+
+        if not self.template_paths:
+            self.template_paths = ["No templates found!"]
+        
+        self.webshell_select.addItems(self.template_paths)
+        layout.addWidget(self.webshell_select)
+
+        self.template_editor = QTextEdit()
+        self.template_editor.setStyleSheet("ackground-color: #111; color: #0f0; font-family: Courier;")
+        layout.addWidget(self.template_editor)
+
+        self.highligther = TemplateHighlighter(self.template_editor.document())
+
+        def load_selected_template():
+            selected = self.webshell_select.currentText()
+            if selected and "No templates found!" not in selected:
+                path = os.path.join("templates", selected)
+                try:
+                    with open(path, "r") as f:
+                        self.template_editor.setPlainText(f.read())
+                except Exception as e:
+                    self.template_editor.setPlainText(f"[!] Error loading template: \n{e}")
+
+        self.webshell_select.currentTextChanged.connect(load_selected_template)
+
+        if self.template_paths:
+            self.payload_select.setCurrentIndex(0)
+            load_selected_template()
+    
+        def save_template():
+            selected = self.webshell_select.currentText()
+            if selected and "No templates found!" not in selected:
+                path = os.path.join("templates", selected)
+                try:
+                    with open(path, "w") as f:
+                        f.write(self.template_editor.toPlainText())
+                    self.webshell_output.append(f"[+] Template saved: {path}")
+                except Exception as e:
+                    self.webshell_output.append(f"[!] Error saving template: {e}")
+        save_shortcut = QShortcut(QKeySequence("Ctrl+S"), self)
+        save_shortcut.activated.connect(save_template)
+
+        def generate_from_template():
+            selected = self.webshell_select.currentText()
+            lhost = self.lhost_input.text().strip()
+            lport = self.lport_input.text().strip()
+            output_name = self.output_input.text().strip()
+
+            if not selected or not lhost or not lport or not output_name:
+                self.webshell_output.append("[!] Please fill in all fields!")
+                return
+            
+            input_path = os.path.join("templates", selected)
+            output_path = os.path.join("output", output_name)
+
+            try:
+                with open(input_path, "r") as f:
+                    content = f.read()
+                
+                content = content.replace("{{IP}}", lhost).replace("{{PORT}}", lport)
+
+                os.makedirs("output", exist_ok=True)
+                with open(output_path, "w") as f:
+                    f.write(content)
+                self.payload_output.append(f"[+] Template written to: {output_path}")
+            except Exception as e:
+                self.payload_output.append(f"[!] Failed: {e}")
+
+        self.lhost_input = QLineEdit()
+        self.lhost_input.setPlaceholderText("LHOST: ")
+        layout.addWidget(self.lhost_input)
+
+        self.lport_input = QLineEdit()
+        self.lport_input.setPlaceholderText("LPORT: ")
+        layout.addWidget(self.lport_input)
+
+        self.format_input = QLineEdit()
+        self.format_input.setPlaceholderText("Format (exe, elf, py, etc.)")
+        layout.addWidget(self.format_input)
+
+        self.output_input = QLineEdit()
+        self.output_input.setPlaceholderText("Output file name")
+        layout.addWidget(self.output_input)
+
+        run_btn = QPushButton("Generate payload")
+        run_btn.setStyleSheet("background-color: #3a3a3a; color: #0f0;")
+        run_btn.clicked.connect(self.run_payload_generator)
+        layout.addWidget(run_btn)
+
+        use_btn = QPushButton("Generate payload from template")
+        use_btn.setStyleSheet("background-color: #3a3a3a; color: #0f0;")
+        use_btn.clicked.connect(generate_from_template)
+        layout.addWidget(use_btn)
+
+        self.payload_output = QTextEdit()
+        self.payload_output.setReadOnly(True)
+        self.payload_output.setStyleSheet("background-color: #111; color: #0f0; font-family: Courier;")
+        layout.addWidget(self.payload_output)
+
+        back_btn = QPushButton("⬅ Back to Menu")
+        back_btn.setStyleSheet("background-color: #333; color: #f55;")
+        back_btn.clicked.connect(self.show_menu)
+        layout.addWidget(back_btn)
+
+        self.payload_screen.setLayout(layout)
+        self.stack.addWidget(self.payload_screen)
+        self.stack.setCurrentWidget(self.payload_screen)
     
     def show_pet_screen(self):
         self.pet_screen = QWidget()
